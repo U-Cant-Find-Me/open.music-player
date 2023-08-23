@@ -15,7 +15,7 @@ export default async function Home() {
             Welcome Back
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4">
-            <ListItem songs={songs} image="/images/liked.png" name="Liked Music" href="liked" />
+            <ListItem image="/images/liked.png" name="Liked Music" href="liked" />
           </div>
         </div>
       </Header>

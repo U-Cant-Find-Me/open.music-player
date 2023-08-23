@@ -3,12 +3,12 @@ import { cookies } from "next/headers";
 
 import { Song } from "@/types";
 
-const getSongs = async (): Promise<Song[]> => {
+const getSongById = async (id: string): Promise<Song> => {
   const supabase = createServerComponentClient({
     cookies: cookies
   });
 
-  const { data, error } = await supabase.from('songs').select('*').order('created_at', { ascending: false })
+  const { data, error } = await supabase.from('songs').select('*').eq('id', id).single();
 
   if (error) {
     console.log(error.message);
@@ -17,4 +17,4 @@ const getSongs = async (): Promise<Song[]> => {
   return (data as any) || [];
 };
 
-export default getSongs;
+export default getSongById;
