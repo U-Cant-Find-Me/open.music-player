@@ -17,18 +17,21 @@ const AccountContent = () => {
                 <Image className="object-fill rounded-full" fill alt="Image" src={image || '/images/avatar.png'} />
             </div>
             <div>
-                <blockquote className="text-xl italic font-semibold text-center text-gray-900 dark:text-white">
-                    <p>
-                        User : 
-                    </p>
-                    <p className="text-gray-300 dark:text-gray-400">
-                        {` ${name}`}
-                    </p>
-                </blockquote>
+                {
+                    name &&
+                    <blockquote className="text-xl italic font-semibold text-center text-gray-900 dark:text-white">
+                        <p>
+                            User :
+                        </p>
+                        <p className="text-gray-300 dark:text-gray-400">
+                            {` ${name}`}
+                        </p>
+                    </blockquote>
+                }
                 <hr className="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
                 <blockquote className="text-xl italic font-semibold text-center text-gray-900 dark:text-white">
                     <p>
-                        Email : 
+                        {name ? "Email" : "Logged In With"} :
                     </p>
                     <p className="text-gray-300 dark:text-gray-400">
                         {` ${email}`}
