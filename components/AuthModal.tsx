@@ -14,16 +14,12 @@ const AuthModal = () => {
     const { session } = useSessionContext();
     const { onClose, isOpen } = useAuthModal();
 
-    console.log(session);
-
     useEffect(() => {
         if (session) {
             router.refresh();
             onClose();
         }
     }, [session, router, onClose]);
-
-
 
     const OnChange = (open: boolean) => {
         if (!open) {
