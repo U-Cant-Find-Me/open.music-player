@@ -14,6 +14,8 @@ const AuthModal = () => {
     const { session } = useSessionContext();
     const { onClose, isOpen } = useAuthModal();
 
+    console.log(session);
+
     useEffect(() => {
         if (session) {
             router.refresh();
@@ -21,13 +23,15 @@ const AuthModal = () => {
         }
     }, [session, router, onClose]);
 
+
+
     const OnChange = (open: boolean) => {
         if (!open) {
             onClose();
         }
     }
     return (
-        <Modal title="Welcome Back" description="Login To your Account" isOpen={isOpen} onChange={OnChange}>
+        <Modal title="Welcome Back" description="Login To your Account" isOpen={isOpen} OnChange={OnChange}>
             <Auth theme="dark" magicLink providers={["github", "google"]} supabaseClient={supabaseClient} appearance={{
                 theme: ThemeSupa,
                 variables: {

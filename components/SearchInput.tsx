@@ -1,36 +1,41 @@
-"use client";
+'use client';
 
-import Input from "./Input";
+import useDebounce from "@/hooks/useDebounce";
+import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import useDebounce from "@/hooks/useDebounce";
+import Input from "./Input";
+// import { toast } from "react-hot-toast";
 
 const SearchInput = () => {
-  const router = useRouter();
-  const [value, setValue] = useState<string>('');
-  const debouncedValue = useDebounce<string>(value, 500);
+    const router = useRouter();
+    const [value, setValue] = useState<string>("");
+    const debounceValue = useDebounce<string>(value, 1000);
 
-  useEffect(() => {
-    const query = {
-      title: debouncedValue,
-    };
+    useEffect(() => {
+        const query = {
+            title: debounceValue,
+        };
+        const url = qs.stringifyUrl({
+            url: '/search',
+            query: query
+        });
+        router.push(url);
+    }, [debounceValue, router]);
+    
+    // onChange = (e: any) => {
+    //     setValue(e.target.value);
+    //     const toasterID = toast.loading("Searching...");
+    //     setTimeout(() => {
+    //         toast.dismiss(toasterID);
+    //     }, 2500);
+    // }
 
-    const url = qs.stringifyUrl({
-      url: '/search',
-      query
-    });
+    // What do you want to listen to..
 
-    router.push(url);
-  }, [debouncedValue, router]);
-
-  return ( 
-    <Input 
-      placeholder="What do you want to listen to?"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
+    return (
+        <Input placeholder="Searching For Melodies..." value={value} onChange={(e) => setValue(e.target.value)} />
+    )
 }
- 
+
 export default SearchInput;
