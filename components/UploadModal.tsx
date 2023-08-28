@@ -30,6 +30,9 @@ const UploadModal = () => {
     })
     const OnChange = (open: boolean) => {
         if (!open) {
+            if (!user) {
+                return uploadModal.onClose();
+            }
             var toastId = toast.loading('Just A Moment. Saving Changes.', {
                 position: 'bottom-right',
             });
@@ -114,27 +117,36 @@ const UploadModal = () => {
 
     return (
         <div>
-            <Modal title="Add A Song" description="Upload an MP3 Flie" isOpen={uploadModal.isOpen} OnChange={OnChange}>
-                <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(onSubmit)}>
-                    <Input id="title" disabled={isLoading} {...register('title', { required: true })} placeholder="Song Title" />
-                    <Input id="author" disabled={isLoading} {...register('author', { required: true })} placeholder="Song Author" />
-                    <div>
-                        <div className="pb-1">
-                            Select a Song File
-                        </div>
-                        <Input id="song" type="file" disabled={isLoading} accept=".mp3" {...register('song', { required: true })} />
-                    </div>
-                    <div>
-                        <div className="pb-1">
-                            Select an image
-                        </div>
-                        <Input id="image" type="file" disabled={isLoading} accept="image/*" {...register('image', { required: true })} />
-                    </div>
-                    <Button disabled={isLoading} type="submit" >
-                        {isLoading ? 'Hold On, Uploading..' : 'Create'}
-                    </Button>
-                </form>
-            </Modal>
+            {
+                !user ? (
+                    <Modal title="SignIn First" description="Please SignIn to Upload Songs" isOpen={uploadModal.isOpen} OnChange={OnChange}>
+                    </Modal>
+                ) :
+                    <Modal title="Add A Song" description="Upload an MP3 Flie" isOpen={uploadModal.isOpen} OnChange={OnChange}>
+                        <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(onSubmit)}>
+                            <Input id="title" disabled={isLoading} {...register('title', { required: true })} placeholder="Song Title" />
+                            <Input id="author" disabled={isLoading} {...register('author', { required: true })} placeholder="Song Author" />
+                            <div>
+                                <div className="pb-1">
+                                    Select a Song File
+                                </div>
+                                <Input id="song" type="file" disabled={isLoading} accept=".mp3" {...register('song', { required: true })} />
+                            </div>
+                            <div>
+                                <div className="pb-1">
+                                    Select an image
+                                </div>
+                                <Input id="image" type="file" disabled={isLoading} accept="image/*" {...register('image', { required: true })} />
+                            </div>
+                            <Button disabled={isLoading} type="submit" >
+                                {
+                                    isLoading ? 'Hold On, Uploading..' : 'Create'
+
+                                }
+                            </Button>
+                        </form>
+                    </Modal>
+            }
         </div>
     )
 }
