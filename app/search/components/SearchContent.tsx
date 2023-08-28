@@ -2,6 +2,7 @@
 
 import LikeButton from "@/components/LikeButton";
 import MediaItem from "@/components/MediaItem";
+import SongUploadModal from "@/components/SongUploadModal";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "@/types";
 
@@ -13,11 +14,16 @@ const SearchContent: React.FC<SearchContentProps> = ({
     songs
 }) => {
     const onPlay = useOnPlay(songs);
-    if(!songs.length){
-        return(
-            <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
-                No Songs Found
-            </div>
+    if (!songs.length) {
+        return (
+            <>
+                <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
+                    No Songs Found
+                </div>
+                <div className="p-4 grid grid-cols-1 sm:grid-cols-2 items-center justify-center sm:w-2/3">
+                    <SongUploadModal image="/images/upload2.png" name="Upload Songs" />
+                </div>
+            </>
         )
     }
 

@@ -2,6 +2,7 @@ import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./component/PageContent";
+import SongUploadModal from "@/components/SongUploadModal";
 
 export const revalidate = 0;
 
@@ -14,8 +15,13 @@ export default async function Home() {
           <h1 className="text-white text-3xl font-semibold">
             Welcome Back
           </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4">
-            <ListItem songs={songs} image="/images/liked.png" name="Liked Music" href="liked" />
+          <div className="grid grid-cols-1 sm:flex sm:flex-row sm:items-end sm:space-y-0">
+            <div className="sm:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+              <ListItem songs={songs} image="/images/liked.png" name="Liked Music" href="liked" />
+            </div>
+            <div className="sm:w-1/3 grid grid-cols-1 sm:grid-cols-1 justify-end gap-3 mt-4">
+              <SongUploadModal image="/images/upload2.png" name="Upload Songs" />
+            </div>
           </div>
         </div>
       </Header>
